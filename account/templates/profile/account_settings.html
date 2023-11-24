@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="card mb-4">
+    <h5 class="card-header">Profile Details</h5>
+    <!-- Account -->
+    <div class="card-body">
+        <div class="d-flex align-items-start align-items-sm-center gap-4">
+            <img
+                    alt="user-avatar"
+                    class="d-block rounded"
+                    height="100"
+                    id="uploadedAvatar"
+                    src="{% static '/assets/img/avatars/1.png' %}"
+                    width="100"
+            />
+
+        </div>
+    </div>
+
+
+    <hr class="my-0"/>
+    <div class="card-body">
+        <form id="formAccountSettings" method="POST" onsubmit="return false">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <form enctype="multipart/form-data" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                        {% endfor %}
+
+                        <button class="btn btn-primary" name="form_request" value="form1" type="submit">Save</button>
+
+                    </form>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

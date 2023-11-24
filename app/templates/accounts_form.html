@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h4 class="fw-bold py-3 mb-4">New Entry</h4>
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label">{{field.label}}</label>
+            {{field}}
+        </div>
+        {% endfor %}
+
+      <button type="submit" name="form_request" class="btn btn-primary">Save</button>
+
+    </form>
+  </div>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Function to toggle visibility based on the selected value of "status"
+      function toggleCategoryFields() {
+        var statusField = document.getElementById("id_status");
+        var categoryField = document.getElementById("id_category");
+        var categorysField = document.getElementById("id_categorys");
+
+        if (statusField.value === "income") {
+          categoryField.parentElement.style.display = "block";
+          categorysField.parentElement.style.display = "none";
+        } else if (statusField.value === "expense") {
+          categoryField.parentElement.style.display = "none";
+          categorysField.parentElement.style.display = "block";
+        }
+      }
+
+      // Initial invocation of the function
+      toggleCategoryFields();
+
+      // Add an event listener to the "status" field to invoke the function on change
+      document.getElementById("id_status").addEventListener("change", toggleCategoryFields);
+    });
+  </script>
+
+{% endblock content %}
